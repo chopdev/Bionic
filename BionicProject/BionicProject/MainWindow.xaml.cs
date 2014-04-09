@@ -29,7 +29,7 @@ namespace BionicProject
     {
         User user;
         StoreDB store = new StoreDB();
-
+        SignIn SignInDialog;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,8 +38,11 @@ namespace BionicProject
             if (user == null) { MessageBox.Show("Where am I?"); Environment.Exit(0); }
             CoursesTree.ItemsSource = user.MyCourses;
 
-            Register r = new Register();
-            r.Show();
+            //Register r = new Register();
+            //r.Show();
+            SignInDialog = new SignIn();
+            SignInDialog.ShowDialog();
+
         } 
     }
 }

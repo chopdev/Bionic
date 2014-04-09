@@ -27,7 +27,7 @@ namespace BionicProject
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             string Email = EmailTextBox.Text;
-            if (!Email.Contains("@"))
+            if (!Email.Contains("@") || PasswordTextBox.Text.Length == 0)
             {
                 System.Windows.MessageBox.Show("Email is not valide");
                 EmailTextBox.Focus();
@@ -41,7 +41,13 @@ namespace BionicProject
             else birthDate = DateTime.Now;
             StoreDB store = new StoreDB();
             store.RegisterUser(Email, Password, FirstName, LastName, birthDate, DateTime.Now);
+            this.Close();
             
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
 

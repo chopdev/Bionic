@@ -38,6 +38,7 @@ namespace BionicProject
             finally
             {
                 database.Close();
+                
             }
             
         }
