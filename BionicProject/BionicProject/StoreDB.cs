@@ -13,25 +13,30 @@ namespace BionicProject
 {
    partial class StoreDB
     {
-        string connection = "Server=mysql.cyberhost.net.ua;Database=bionic_lab;Uid=Bionic;Pwd=BionicGroup;";
+        string connection = "Server=mysql.cyberhost.net.ua;Database=Bionic;Uid=Bionic;Pwd=BionicGroup;";
         string SelectAllcourses = "Select * from `Course`";
-        string Use = "Use Bionic";
+       // string Use = "Use Bionic";
         string SelectCourses = "SELECT * FROM `UserCourses` usrc JOIN `Course` c ON usrc.CourseID = c.CourseID where usrc.UserID =@ID";
         string GetUser = "SELECT * FROM `User` WHERE Email = @Email and Pass = @pass";
-        string GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=2122"; 
+        string GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=2122";
 
+       MySqlConnection database;
 
-
-        MySqlConnection database;
-        MySqlCommand  UseCommand;
-        
-        public StoreDB()
+        private StoreDB()
         {
             database = new MySqlConnection(connection);
-            UseCommand = new MySqlCommand(Use, database);
         }
 
-        public List<Course> PossibleCourses(User user)
+       private static StoreDB _instance;
+       public static StoreDB Instance
+       {
+           get { if(_instance==null)
+                        return new StoreDB();
+               return _instance;
+           }
+       }
+
+       public List<Course> PossibleCourses(User user)
         {
             List<Course> Allcourses = new List<Course>();
             MySqlCommand cmd = database.CreateCommand();

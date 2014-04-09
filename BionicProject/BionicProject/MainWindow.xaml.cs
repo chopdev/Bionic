@@ -14,10 +14,13 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 ///////////////////////////////////
-using MySql.Data.MySqlClient;
+
 using System.Data;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using MySql.Data.MySqlClient;
+
+
 ///////////////////////////////////
 
 namespace BionicProject
