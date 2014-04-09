@@ -13,22 +13,19 @@ namespace BionicProject
 {
    partial class StoreDB
     {
-        string connection = "Server=mysql.cyberhost.net.ua;Database=bionic_lab;Uid=Bionic;Pwd=BionicGroup;";
+        string connection = "Server=mysql.cyberhost.net.ua;Database=Bionic;Uid=Bionic;Pwd=BionicGroup;";
         string SelectAllcourses = "Select * from `Course`";
-        string Use = "Use Bionic";
         string SelectCourses = "SELECT * FROM `UserCourses` usrc JOIN `Course` c ON usrc.CourseID = c.CourseID where usrc.UserID =@ID";
         string GetUser = "SELECT * FROM `User` WHERE Email = @Email and Pass = @pass";
-        string GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=2122"; 
-
-
+        
 
         MySqlConnection database;
-        MySqlCommand  UseCommand;
+
         
         public StoreDB()
         {
             database = new MySqlConnection(connection);
-            UseCommand = new MySqlCommand(Use, database);
+
         }
 
         public List<Course> PossibleCourses(User user)
@@ -41,7 +38,7 @@ namespace BionicProject
             try
             {
                 database.Open();
-                UseCommand.ExecuteNonQuery();
+
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 int c_id;
@@ -81,7 +78,7 @@ namespace BionicProject
 
 
             return Allcourses;
-        }
+        } //Выборка возможных курсов для юзера
 
         public User GetUserOnLogin(string Email, string Password)
         {
@@ -95,7 +92,7 @@ namespace BionicProject
             try
             {
                 database.Open();
-                UseCommand.ExecuteNonQuery();
+
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
@@ -116,11 +113,8 @@ namespace BionicProject
                 database.Close();
             }
             return user;
-        }
+        }//Выборка Юзера по логину 
          
-
-
-
         public void ConnectionExample()
         {
             MySqlConnection database = new MySqlConnection(connection);
