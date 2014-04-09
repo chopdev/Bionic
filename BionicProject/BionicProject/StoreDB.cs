@@ -20,11 +20,11 @@ namespace BionicProject
         string GetUser = "SELECT * FROM `User` WHERE Email = @Email and Pass = @pass";
         string GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=2122";
 
-       MySqlConnection database;
+       public MySqlConnection Connection;
 
         private StoreDB()
         {
-            database = new MySqlConnection(connection);
+            Connection = new MySqlConnection(connection);
         }
 
        private static StoreDB _instance;
@@ -39,14 +39,14 @@ namespace BionicProject
        public List<Course> PossibleCourses(User user)
         {
             List<Course> Allcourses = new List<Course>();
-            MySqlCommand cmd = database.CreateCommand();
+            MySqlCommand cmd = Connection.CreateCommand();
             if (user.IsAdmin) cmd.CommandText = SelectAllcourses;
             else { cmd.CommandText = SelectCourses; cmd.Parameters.AddWithValue("@ID", user.UserID); }
 
             try
             {
-                database.Open();
-                UseCommand.ExecuteNonQuery();
+                Connection.Open();
+              
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 int c_id;
@@ -81,7 +81,7 @@ namespace BionicProject
             finally
             {
 
-                database.Close();
+                Connection.Close();
             }
 
 
@@ -91,7 +91,7 @@ namespace BionicProject
         public User GetUserOnLogin(string Email, string Password)
         {
             User user=null;
-            MySqlCommand cmd = database.CreateCommand();
+            MySqlCommand cmd = Connection.CreateCommand();
 
             cmd.CommandText = GetUser;
             cmd.Parameters.AddWithValue("@Email", Email);
@@ -99,8 +99,8 @@ namespace BionicProject
 
             try
             {
-                database.Open();
-                UseCommand.ExecuteNonQuery();
+                Connection.Open();
+                
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
@@ -118,7 +118,7 @@ namespace BionicProject
             finally
             {
 
-                database.Close();
+                Connection.Close();
             }
             return user;
         }
