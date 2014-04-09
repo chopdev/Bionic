@@ -27,45 +27,16 @@ namespace BionicProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        string connection = "Server=mysql.cyberhost.net.ua;Database=bionic_lab;Uid=Bionic;Pwd=BionicGroup;";
+        User user;
+        StoreDB store = new StoreDB();
+
         public MainWindow()
         {
             InitializeComponent();
-            ConnectionExample();
-        }
 
-
-        public void ConnectionExample()
-        {
-            MySqlConnection database = new MySqlConnection(connection);
-            MySqlCommand cmd = database.CreateCommand();
-            string str = "";
-            cmd.CommandText = @"Select * from Bionic.User";
-            try
-            {
-                database.Open();
-                MySqlDataReader data = cmd.ExecuteReader();
-               
-                while (data.Read())
-                {
-
-                    str += data["Email"].ToString() + "\n";
-                   
-                }
-
-            }
-            catch
-            {
-                System.Windows.MessageBox.Show("Не удалось подключиться к БД");
-
-            }
-            finally
-            {
-
-                database.Close();
-            }
-            MessageBox.Show(str);
-        }
-
+            user = store.GetUserOnLogin("sedova26@mail.ru", "123");
+            if (user == null) { MessageBox.Show("Where am I?"); Environment.Exit(0); }
+            CoursesTree.ItemsSource = user.MyCourses;
+        } 
     }
 }

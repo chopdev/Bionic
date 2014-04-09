@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="BionicProject.AdminPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+    
+    <UserControl.Resources>
+             
+        <DataTemplate x:Key="Element">
+            <Expander ExpandDirection="Down" IsExpanded="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions> 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Path=FIO}"></TextBlock> <!--Name+LastName-->
+                    <Label Grid.Row="1">Статус</Label>
+                    <ComboBox MinWidth="80" Grid.Row="1" Grid.Column="1"></ComboBox>
+                    <Button Grid.Row="1" Grid.Column="2">Зберегти зміни</Button>
+                    <Button Grid.Row="2">Видалити з курсу</Button>
+                </Grid>
+            </Expander>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+         
+        <WrapPanel>
+            <Label>Прізвище:</Label>
+            <TextBox MinWidth="80" Text="{Binding Path=Fname}"></TextBox>
+            <Label>Ім'я</Label>
+            <TextBox MinWidth="80" Text="{Binding Path=Lname}"></TextBox>
+            <Label>Статус:</Label>
+            <ComboBox MinWidth="80"></ComboBox>
+        </WrapPanel> 
+        
+        <ListBox Grid.Row="1"  Name="MainPanel">
+            
+        </ListBox>
+    </Grid>
+</UserControl>
