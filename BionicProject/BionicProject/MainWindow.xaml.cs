@@ -37,6 +37,9 @@ namespace BionicProject
             user = store.GetUserOnLogin("sedova26@mail.ru", "123");
             if (user == null) { MessageBox.Show("Where am I?"); Environment.Exit(0); }
             CoursesTree.ItemsSource = user.MyCourses;
+
+            Register r = new Register();
+            r.Show();
         } 
     }
 }

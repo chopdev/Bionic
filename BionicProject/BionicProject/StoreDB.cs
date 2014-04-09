@@ -13,7 +13,8 @@ namespace BionicProject
 {
    partial class StoreDB
     {
-        string connection = "Server=mysql.cyberhost.net.ua;Database=bionic_lab;Uid=Bionic;Pwd=BionicGroup;";
+
+        string connection = "Server=mysql.cyberhost.net.ua;Database=Bionic;Uid=Bionic;Pwd=BionicGroup;";
         string SelectAllcourses = "Select * from `Course`";
         string Use = "Use Bionic";
         string SelectCourses = "SELECT * FROM `UserCourses` usrc JOIN `Course` c ON usrc.CourseID = c.CourseID where usrc.UserID =@ID";
@@ -23,12 +24,12 @@ namespace BionicProject
 
 
         MySqlConnection database;
-        MySqlCommand  UseCommand;
+        //MySqlCommand  UseCommand;
         
         public StoreDB()
         {
             database = new MySqlConnection(connection);
-            UseCommand = new MySqlCommand(Use, database);
+            //UseCommand = new MySqlCommand(Use, database);
         }
 
         public List<Course> PossibleCourses(User user)
@@ -41,7 +42,7 @@ namespace BionicProject
             try
             {
                 database.Open();
-                UseCommand.ExecuteNonQuery();
+                //UseCommand.ExecuteNonQuery();
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 int c_id;
@@ -95,7 +96,7 @@ namespace BionicProject
             try
             {
                 database.Open();
-                UseCommand.ExecuteNonQuery();
+                //UseCommand.ExecuteNonQuery();
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
