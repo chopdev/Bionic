@@ -105,8 +105,38 @@ namespace BionicProject
 
    public class Users : ObservableCollection<User>
     {
-
+       
     }
 
+    public class Question
+    {
+        public int QuestionId { get; set; }
+        public int CourseId { get; private set; }
+        public string QuestionText { get; set;}
+        public QuestionType QuestionType { get; set; }
+        public int Difficulty { get; set; }
 
+        public Question(string questionText,QuestionType questionType, int difficulty, int courseId )
+        {
+            QuestionText = questionText;
+            QuestionType = questionType;
+            Difficulty = difficulty;
+            CourseId = courseId;
+        }
+    }
+
+    public class Answer
+    {
+        public int AnswerId { get; set; }
+        public string AnswerText { get; set; }
+        public int QuestionsId { get; set; }
+        public bool IsCorrect { get; set; }
+
+        public Answer(string answerText, int questionId, bool isCorrect)
+        {
+            AnswerText = answerText;
+            QuestionsId = questionId;
+            IsCorrect = isCorrect;
+        }
+    }
 }

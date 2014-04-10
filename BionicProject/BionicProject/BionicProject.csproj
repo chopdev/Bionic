@@ -61,6 +61,7 @@
     <Compile Include="AModule.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="StoreDB.cs" />
+    <Compile Include="TeacherModule.cs" />
     <Page Include="AdminPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
