@@ -22,10 +22,14 @@ namespace BionicProject
     {
         Course course;
 
+        AdminSelections selection;
+
         public AdminPanel(Course SelectedCourse)
         {
             InitializeComponent();
             course = SelectedCourse;
+            selection = new AdminSelections(course);
+            MainPanel.ItemsSource = selection;
         }
     }
 

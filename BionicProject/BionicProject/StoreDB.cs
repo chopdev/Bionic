@@ -17,28 +17,25 @@ namespace BionicProject
         string SelectAllcourses = "Select * from `Course`";
         string SelectCourses = "SELECT * FROM `UserCourses` usrc JOIN `Course` c ON usrc.CourseID = c.CourseID where usrc.UserID =@ID";
         string GetUser = "SELECT * FROM `User` WHERE Email = @Email and Pass = @pass";
-        
 
-        MySqlConnection database;
+       public MySqlConnection Connection;
 
-        
         public StoreDB()
         {
-            database = new MySqlConnection(connection);
-
+            Connection = new MySqlConnection(connection);
         }
 
-        public List<Course> PossibleCourses(User user)
+       public List<Course> PossibleCourses(User user)
         {
             List<Course> Allcourses = new List<Course>();
-            MySqlCommand cmd = database.CreateCommand();
+            MySqlCommand cmd = Connection.CreateCommand();
             if (user.IsAdmin) cmd.CommandText = SelectAllcourses;
             else { cmd.CommandText = SelectCourses; cmd.Parameters.AddWithValue("@ID", user.UserID); }
 
             try
             {
-                database.Open();
-
+                Connection.Open();
+              
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 int c_id;
@@ -73,17 +70,17 @@ namespace BionicProject
             finally
             {
 
-                database.Close();
+                Connection.Close();
             }
 
 
             return Allcourses;
-        } //Выборка возможных курсов для юзера
+        }
 
-        public User GetUserOnLogin(string Email, string Password)
+       public User GetUserOnLogin(string Email, string Password)
         {
             User user=null;
-            MySqlCommand cmd = database.CreateCommand();
+            MySqlCommand cmd = Connection.CreateCommand();
 
             cmd.CommandText = GetUser;
             cmd.Parameters.AddWithValue("@Email", Email);
@@ -91,9 +88,8 @@ namespace BionicProject
 
             try
             {
-                database.Open();
-
-
+                if(Connection.State != System.Data.ConnectionState.Open)
+                Connection.Open();              
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
                 {
@@ -110,12 +106,12 @@ namespace BionicProject
             finally
             {
 
-                database.Close();
+                Connection.Close();
             }
             return user;
-        }//Выборка Юзера по логину 
+        }
          
-        public void ConnectionExample()
+       public void ConnectionExample()
         {
             MySqlConnection database = new MySqlConnection(connection);
             MySqlCommand cmd = database.CreateCommand();

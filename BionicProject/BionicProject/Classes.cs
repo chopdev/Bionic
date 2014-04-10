@@ -94,7 +94,7 @@ namespace BionicProject
 
    public class Courses : ObservableCollection<Course>
     {
-        StoreDB store = new StoreDB();
+       StoreDB store = new StoreDB();
         public Courses(User user)
         {
             foreach (var m in store.PossibleCourses(user))

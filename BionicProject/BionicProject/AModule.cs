@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 ///////////////////////////////////
 using MySql.Data.MySqlClient;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 ///////////////////////////////////
 
 
@@ -15,23 +17,23 @@ namespace BionicProject
     partial class StoreDB
     {
         string s_GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=@ID";  //Выборка всех юзеров на определенном курсе
-
-        public List<User> GetUsersOnCourse(Course cr)
+        public List<AdminSelection> GetUsersOnCourse(Course cr)
         {
-            User user = null;
-            MySqlCommand cmd = database.CreateCommand();
+            List<AdminSelection> selection = new List<AdminSelection>();
+            MySqlCommand cmd = Connection.CreateCommand();
 
             cmd.CommandText = s_GetUsersOnCourse;
             cmd.Parameters.AddWithValue("@ID", cr.CourseId);
 
             try
             {
-                database.Open();
+                Connection.Open();
 
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
                 {
-                    
+                    selection.Add(new AdminSelection(Int32.Parse(data["UserID"].ToString()),Int32.Parse(data["CourseStatus"].ToString()),
+                        data["FirstName"].ToString(),data["LastName"].ToString(),data["Email"].ToString()));
                 }
 
             }
@@ -43,29 +45,64 @@ namespace BionicProject
             finally
             {
 
-                database.Close();
+               Connection.Close();
             }
-            return user;
+            return selection;
         }
-
     }
 
-
-    public class AdminSelection
+    public class AdminSelection:INotifyPropertyChanged
     {
-        Course course;
-
+        public string FIO { get { return Lname + " " + Fname; } }
         int userid;
+        public int UserID { get { return userid; }  }
         CourseStatus status;
+        public CourseStatus Status { get { return status; } set { SetField(ref status, value, "Status"); } }
         string Fname;
+        public string FirstName { get { return Fname; } }
         string Lname;
+        public string LastName { get { return Lname; } }
         string email;
-
-        public AdminSelection(Course SelectedCourse)
+        public string Email { get { return email; } }
+        public AdminSelection(int userid, int status, string Fname, string Lname, string email)
         {
-            course = SelectedCourse;
+          this.userid = userid;
+          this.status = (CourseStatus)status;
+          this.Fname = Fname;
+          this.Lname = Lname;
+          this.email = email;
         }
+
+        #region
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        protected bool SetField<T>(ref T field, T value, string propertyName)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+        #endregion
+
+
     }
 
+    public class AdminSelections : ObservableCollection<AdminSelection>
+    {
+        StoreDB store = new StoreDB();
+
+        List<AdminSelection> AllusersInCourse = new List<AdminSelection>();
+
+        public AdminSelections(Course cr)
+        {
+            foreach (var m in store.GetUsersOnCourse(cr))
+            { Add(m); AllusersInCourse.Add(m); }
+        }
+    }
 
 }
