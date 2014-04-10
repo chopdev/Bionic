@@ -9,49 +9,65 @@ namespace BionicProject
 {
     public enum QuestionType
     {
-        Radiobutton, 
+        Radiobutton,
         Checkbox,
         Text
     }
 
     public class TeacherModule
     {
-        public void AddQuestion(string questionText, QuestionType questionType, int difficulty)
+        public Question CreateQuestion(string questionText, QuestionType questionType, int difficulty, Course course)
         {
-             using (MySqlConnection connection = )
+            StoreDB storeDb = new StoreDB();
+            using (MySqlConnection connection =storeDb.Connection)
             {
                 connection.Open();
-                string query = string.Format(actionQuery, _tableName);
+                string query = string.Format("insert into {0} set ", "Questions");
                 StringBuilder queryBuilder = new StringBuilder(query);
-                using (MySqlCommand command = (MySqlCommand)GetCommand())
+                using (MySqlCommand command = new MySqlCommand())
                 {
-                    _pack(result, this);
-                    int count = 0;
-                    foreach (KeyValuePair<string, object> item in result)
-                    {
-                        if (item.Key != "Id")
-                        {
-                            count++;
-                            queryBuilder.Append(item.Key + " = @" + item.Key);
-                            if (count < result.Count - 1)
-                            {
-                                queryBuilder.Append(", ");
-                            }
-                        }
-                    }
-                    queryBuilder.Append(" " + whereStatement);
+
+                    queryBuilder.Append(" QuestionText=@QuestionText, QuestionType=@QuestionType, Difficulty=@Difficulty, CourseId=@CourseId");
                     command.CommandText = queryBuilder.ToString();
                     command.Connection = connection;
-                    foreach (KeyValuePair<string, object> item in result)
-                    {
-                        command.Parameters.AddWithValue(item.Key, item.Value);
-                    }
-                    command.ExecuteNonQuery();
-                    if (Id == default(int))
-                    {
-                        Id = (int) command.LastInsertedId;
-                    }
+
+                    command.Parameters.AddWithValue("QuestionText", questionText);
+                    command.Parameters.AddWithValue("QuestionType", questionType);
+                    command.Parameters.AddWithValue("Difficulty", difficulty);
+                    command.Parameters.AddWithValue("CourseId", course.CourseId);
+                    
+                    command.ExecuteNonQuery();  
+                    Question question = new Question(questionText,questionType,difficulty,course.CourseId);
+                    question.QuestionId = (int)command.LastInsertedId;
+                    return question;
                 }
+            }
+        }
+
+        public Answer CreateAnswer(Question question, string answerText)
+        {
+            StoreDB storeDb = new StoreDB();
+            using (MySqlConnection connection = storeDb.Connection)
+            {
+                connection.Open();
+                string query = string.Format("insert into {0} set ", "Answer");
+                StringBuilder queryBuilder = new StringBuilder(query);
+                using (MySqlCommand command = new MySqlCommand())
+                {
+
+                    queryBuilder.Append(" AnswerText=@AnswerText, QuestionId=@QuestionId");
+                    command.CommandText = queryBuilder.ToString();
+                    command.Connection = connection;
+
+                    command.Parameters.AddWithValue("AnswerText", answerText);
+                    command.Parameters.AddWithValue("QuestionType", question.QuestionId);
+
+                    command.ExecuteNonQuery();
+                    Answer answer = new Answer(answerText,question.QuestionId);
+                    answer.AnswerId = (int)command.LastInsertedId;
+                    return  answer;
+                }
+            }
         }
     }
 }

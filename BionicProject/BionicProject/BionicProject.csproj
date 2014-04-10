@@ -59,7 +59,6 @@
       <DependentUpon>AdminPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="AModule.cs" />
-    <Compile Include="Base.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="StoreDB.cs" />
     <Compile Include="TeacherModule.cs" />

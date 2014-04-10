@@ -15,26 +15,15 @@ namespace BionicProject
     {
         string connection = "Server=mysql.cyberhost.net.ua;Database=Bionic;Uid=Bionic;Pwd=BionicGroup;";
         string SelectAllcourses = "Select * from `Course`";
-       // string Use = "Use Bionic";
         string SelectCourses = "SELECT * FROM `UserCourses` usrc JOIN `Course` c ON usrc.CourseID = c.CourseID where usrc.UserID =@ID";
         string GetUser = "SELECT * FROM `User` WHERE Email = @Email and Pass = @pass";
-        string GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=2122";
 
        public MySqlConnection Connection;
 
-        private StoreDB()
+        public StoreDB()
         {
             Connection = new MySqlConnection(connection);
         }
-
-       private static StoreDB _instance;
-       public static StoreDB Instance
-       {
-           get { if(_instance==null)
-                        return new StoreDB();
-               return _instance;
-           }
-       }
 
        public List<Course> PossibleCourses(User user)
         {
@@ -88,7 +77,7 @@ namespace BionicProject
             return Allcourses;
         }
 
-        public User GetUserOnLogin(string Email, string Password)
+       public User GetUserOnLogin(string Email, string Password)
         {
             User user=null;
             MySqlCommand cmd = Connection.CreateCommand();
@@ -99,9 +88,8 @@ namespace BionicProject
 
             try
             {
-                Connection.Open();
-                
-
+                if(Connection.State != System.Data.ConnectionState.Open)
+                Connection.Open();              
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
                 {
@@ -123,10 +111,7 @@ namespace BionicProject
             return user;
         }
          
-
-
-
-        public void ConnectionExample()
+       public void ConnectionExample()
         {
             MySqlConnection database = new MySqlConnection(connection);
             MySqlCommand cmd = database.CreateCommand();

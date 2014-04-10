@@ -3,13 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:BionicProject"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="300" d:DesignWidth="400" >
     
     <UserControl.Resources>
-             
+        <ObjectDataProvider x:Key="dataFromEnum"
+       MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:CourseStatus"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+
         <DataTemplate x:Key="Element">
-            <Expander ExpandDirection="Down" IsExpanded="True">
+            <Expander ExpandDirection="Down" IsExpanded="False" Header="{Binding Path=FIO}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -22,15 +31,16 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding Path=FIO}"></TextBlock> <!--Name+LastName-->
                     <Label Grid.Row="1">Статус</Label>
-                    <ComboBox MinWidth="80" Grid.Row="1" Grid.Column="1"></ComboBox>
-                    <Button Grid.Row="1" Grid.Column="2">Зберегти зміни</Button>
+                    <ComboBox Margin="10,0,0,0" MinWidth="100" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
+                              SelectedItem="{Binding Path=Status, Mode=TwoWay}"></ComboBox>
+                    <Button Margin="10,0,0,0" Grid.Row="1" Grid.Column="2">Зберегти зміни</Button>
                     <Button Grid.Row="2">Видалити з курсу</Button>
                 </Grid>
             </Expander>
         </DataTemplate>
     </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -39,14 +49,14 @@
          
         <WrapPanel>
             <Label>Прізвище:</Label>
-            <TextBox MinWidth="80" Text="{Binding Path=Fname}"></TextBox>
+            <TextBox MinWidth="80" ></TextBox>
             <Label>Ім'я</Label>
-            <TextBox MinWidth="80" Text="{Binding Path=Lname}"></TextBox>
+            <TextBox MinWidth="80" ></TextBox>
             <Label>Статус:</Label>
             <ComboBox MinWidth="80"></ComboBox>
-        </WrapPanel> 
-        
-        <ListBox Grid.Row="1"  Name="MainPanel">
+        </WrapPanel>
+
+        <ListBox Grid.Row="1"  Name="MainPanel" ItemTemplate="{StaticResource Element}">
             
         </ListBox>
     </Grid>

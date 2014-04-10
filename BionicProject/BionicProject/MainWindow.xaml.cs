@@ -32,7 +32,6 @@ namespace BionicProject
     {
         User user;
         StoreDB store = new StoreDB();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +39,10 @@ namespace BionicProject
             user = store.GetUserOnLogin("sedova26@mail.ru", "123");
             if (user == null) { MessageBox.Show("Where am I?"); Environment.Exit(0); }
             CoursesTree.ItemsSource = user.MyCourses;
+            AdminPanel adm = new AdminPanel(new Course(10, "SomeCourse", 23));
+            Grid.SetColumn(adm, 1);
+            Grid.SetRow(adm, 1);
+            Programulina.Children.Add(adm);
         } 
     }
 }
