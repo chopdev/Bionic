@@ -11,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 ///////////////////////////////////
 
-
 namespace BionicProject
 {
     partial class StoreDB
@@ -96,7 +95,7 @@ namespace BionicProject
     {
         StoreDB store = new StoreDB();
 
-        List<AdminSelection> AllusersInCourse = new List<AdminSelection>();
+        public List<AdminSelection> AllusersInCourse = new List<AdminSelection>();
 
         public AdminSelections(Course cr)
         {

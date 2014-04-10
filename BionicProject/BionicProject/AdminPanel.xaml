@@ -49,9 +49,9 @@
          
         <WrapPanel>
             <Label>Прізвище:</Label>
-            <TextBox MinWidth="80" ></TextBox>
+            <TextBox MinWidth="80"  TextChanged="TextBox_TextChanged_1" Name="Lname_Field"></TextBox>
             <Label>Ім'я</Label>
-            <TextBox MinWidth="80" ></TextBox>
+            <TextBox MinWidth="80" TextChanged="TextBox_TextChanged_1" Name="Fname_Field"></TextBox>
             <Label>Статус:</Label>
             <ComboBox MinWidth="80"></ComboBox>
         </WrapPanel>
