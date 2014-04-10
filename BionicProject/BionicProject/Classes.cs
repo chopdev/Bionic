@@ -130,11 +130,13 @@ namespace BionicProject
         public int AnswerId { get; set; }
         public string AnswerText { get; set; }
         public int QuestionsId { get; set; }
+        public bool IsCorrect { get; set; }
 
-        public Answer(string answerText, int questionId)
+        public Answer(string answerText, int questionId, bool isCorrect)
         {
             AnswerText = answerText;
             QuestionsId = questionId;
+            IsCorrect = isCorrect;
         }
     }
 }

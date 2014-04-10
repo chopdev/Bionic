@@ -44,7 +44,7 @@ namespace BionicProject
             }
         }
 
-        public Answer CreateAnswer(Question question, string answerText)
+        public Answer CreateAnswer(Question question, string answerText, bool isCorrect)
         {
             StoreDB storeDb = new StoreDB();
             using (MySqlConnection connection = storeDb.Connection)
@@ -55,17 +55,65 @@ namespace BionicProject
                 using (MySqlCommand command = new MySqlCommand())
                 {
 
-                    queryBuilder.Append(" AnswerText=@AnswerText, QuestionId=@QuestionId");
+                    queryBuilder.Append(" AnswerText=@AnswerText, QuestionId=@QuestionId, IsCorrect=@IsCorrect");
                     command.CommandText = queryBuilder.ToString();
                     command.Connection = connection;
 
                     command.Parameters.AddWithValue("AnswerText", answerText);
                     command.Parameters.AddWithValue("QuestionType", question.QuestionId);
+                    command.Parameters.AddWithValue("IsCorrect", isCorrect);
 
                     command.ExecuteNonQuery();
                     Answer answer = new Answer(answerText,question.QuestionId);
                     answer.AnswerId = (int)command.LastInsertedId;
                     return  answer;
+                }
+            }
+        }
+
+        public List<Question> GetQuestionsByCourse(Course course)
+        {
+            StoreDB storeDb = new StoreDB();
+            using (var connection = storeDb.Connection)
+            {
+                connection.Open();
+                var command = new MySqlCommand();
+                command.CommandText = string.Format("select * from {0} where CourseId=@CourseId", "Questions");
+                command.Connection = connection;
+                using (var reader = command.ExecuteReader())
+                {
+                    List<Question> result = new List<Question>();
+                    while (reader.Read())
+                    {
+                        var question = new Question(reader["QuestionText"].ToString(), (QuestionType)reader["QuestionType"], (int)reader["Difficulty"], (int)reader["CourseId"]);
+                        question.QuestionId = (int)reader["QuestionsId"];
+                        result.Add(question);
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public List<Answer> GetAnswersByQuestion(Question question)
+        {
+            StoreDB storeDb = new StoreDB();
+            using (var connection = storeDb.Connection)
+            {
+                connection.Open();
+                var command = new MySqlCommand();
+                command.CommandText = string.Format("select * from {0} where QuestionsId=@QuestionsId", "Answer");
+                command.Connection = connection;
+                using (var reader = command.ExecuteReader())
+                {
+                    List<Answer> result = new List<Answer>();
+                    while (reader.Read())
+                    {
+                        var answer = new Answer(reader["AnswerText"].ToString(), (int) reader["QuestionsId"],
+                                                (bool) reader["IsCorrect"]);
+                        answer.AnswerId = (int)reader["AnswerId"];
+                        result.Add(answer);
+                    }
+                    return result;
                 }
             }
         }
