@@ -31,6 +31,45 @@ namespace BionicProject
             selection = new AdminSelections(course);
             MainPanel.ItemsSource = selection;
         }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (Lname_Field.Text.Length==0&&Fname_Field.Text.Length==0)
+            {
+                selection.Clear();
+                foreach (var n in selection.AllusersInCourse) selection.Add(n);
+                return;
+            }
+
+
+            IEnumerable<AdminSelection> from_array;
+           
+
+            if (selection.Count == 0 && selection.AllusersInCourse.Count != 0) from_array = selection.AllusersInCourse;
+            else from_array = selection.AllusersInCourse;
+            IEnumerable<AdminSelection> to = from_array;
+
+            if (Lname_Field.Text.Length > 0)
+            {
+                to = from record in from_array
+                     where record.LastName.StartsWith(Lname_Field.Text, true, new System.Globalization.CultureInfo("uk-UA"))
+                     select record;
+                from_array = to;
+            }
+
+            if (Fname_Field.Text.Length > 0)
+            {
+                to = from record in from_array
+                     where record.FirstName.StartsWith(Fname_Field.Text, true, new System.Globalization.CultureInfo("uk-UA"))
+                     select record;
+            }
+
+            selection.Clear();
+            foreach (var g in to) selection.Add(g);
+            
+        }
+      
     }
 
 }
