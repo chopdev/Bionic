@@ -64,7 +64,7 @@ namespace BionicProject
                     command.Parameters.AddWithValue("IsCorrect", isCorrect);
 
                     command.ExecuteNonQuery();
-                    Answer answer = new Answer(answerText,question.QuestionId);
+                    Answer answer = new Answer(answerText,question.QuestionId, isCorrect);
                     answer.AnswerId = (int)command.LastInsertedId;
                     return  answer;
                 }
