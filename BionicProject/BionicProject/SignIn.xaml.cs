@@ -31,7 +31,7 @@ namespace BionicProject
             user = storeDB.GetUserOnLogin(EmailTextBox.Text, PasswordTextBox.Text);
             if (user == null)
             {
-                System.Windows.MessageBox.Show("Incorrect email and password!");
+                System.Windows.MessageBox.Show("Incorrect email or password!");
             }
             else this.Close();
         }
