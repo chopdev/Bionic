@@ -15,7 +15,16 @@ namespace BionicProject
 {
     partial class StoreDB
     {
-        string s_GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=@ID";  //Выборка всех юзеров на определенном курсе
+       
+        string s_GetUsersOnCourse = "SELECT * FROM `UserCourses` JOIN `User` on UserCourses.UserID=User.UserID WHERE CourseID=@ID";  
+        //Выборка всех юзеров на определенном курсе
+        string s_UpUserStatus = "UPDATE `UserCourses` SET `CourseStatus` = @St  WHERE `UserCourses`.`CourseID` =  @c_id AND `UserCourses`.`UserID` = @u_id;";
+        //Поменять роль телу на курсе
+        
+        //Удалить тело с курса
+        string s_deleteOnCourse = "DELETE FROM `UserCourses` WHERE `UserID`=@U_id and `CourseID`=@C_id";
+
+
         public List<AdminSelection> GetUsersOnCourse(Course cr)
         {
             List<AdminSelection> selection = new List<AdminSelection>();
@@ -48,13 +57,69 @@ namespace BionicProject
             }
             return selection;
         }
+
+        public bool UpdateStatusOnCourse(Course cr, int ID, CourseStatus CS)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+
+            cmd.CommandText = s_UpUserStatus;
+            cmd.Parameters.AddWithValue("@St", CS);
+            cmd.Parameters.AddWithValue("@c_id", cr.CourseId);
+            cmd.Parameters.AddWithValue("@u_id", ID);
+            bool result = true;
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+                
+          
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("Не удалось подключиться к БД");
+                result = false;
+            }
+            finally
+            {
+
+                Connection.Close();
+            }
+            return result;
+        }
+
+        public bool DeleteUserOnCurse(Course cr, int ID)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+
+            cmd.CommandText = s_deleteOnCourse;
+            cmd.Parameters.AddWithValue("@C_id", cr.CourseId);
+            cmd.Parameters.AddWithValue("@U_id", ID);
+            bool result = true;
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("Не удалось подключиться к БД");
+                result = false;
+            }
+            finally
+            {
+
+                Connection.Close();
+            }
+            return result;
+        }
     }
 
     public class AdminSelection:INotifyPropertyChanged
     {
         public string FIO { get { return Lname + " " + Fname; } }
         int userid;
-        public int UserID { get { return userid; }  }
+        public int UserID { get { return userid; } set{SetField(ref userid, value, "UserID");}  }
         CourseStatus status;
         public CourseStatus Status { get { return status; } set { SetField(ref status, value, "Status"); } }
         string Fname;
@@ -88,6 +153,10 @@ namespace BionicProject
         }
         #endregion
 
+        public AdminSelection Clone()
+        {
+            return new AdminSelection(this.userid, (int)this.status, this.Fname, this.Lname, this.email);
+        }
 
     }
 
@@ -95,12 +164,32 @@ namespace BionicProject
     {
         StoreDB store = new StoreDB();
 
-        public List<AdminSelection> AllusersInCourse = new List<AdminSelection>();
+        public AdminSelections AllusersInCourse;
 
         public AdminSelections(Course cr)
         {
+
+            AllusersInCourse = new AdminSelections();
+
             foreach (var m in store.GetUsersOnCourse(cr))
-            { Add(m); AllusersInCourse.Add(m); }
+            { Add(m); AllusersInCourse.Add(m.Clone()); }
+        }
+
+
+        AdminSelections()
+        {
+
+        }
+
+        public AdminSelection[] CloneCollection()
+        {
+            AdminSelection[] n_select = new AdminSelection[this.Count];
+            int i = 0;
+            foreach (var m in this)
+            {
+                n_select[i++] = m.Clone(); 
+            }
+            return n_select;
         }
     }
 
