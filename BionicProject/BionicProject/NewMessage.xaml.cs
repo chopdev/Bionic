@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 namespace BionicProject
 {
     /// <summary>
-    /// Логика взаимодействия для MessageControl.xaml
+    /// Логика взаимодействия для NewMessage.xaml
     /// </summary>
-    public partial class MessageControl : UserControl
+    public partial class NewMessage : Window
     {
-        public MessageControl()
+        public NewMessage()
         {
             InitializeComponent();
-        }
-
-        private void createNewMessage_Click(object sender, RoutedEventArgs e)
-        {
-            NewMessageWindow control = new NewMessageWindow();
-            Grid.SetColumn(control, 1);
-            Grid.SetRow(control, 1);
-            
-            
         }
     }
 }

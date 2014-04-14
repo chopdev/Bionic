@@ -42,6 +42,7 @@ namespace BionicProject
             MessageControl control = new MessageControl();
             Grid.SetColumn(control, 1);
             Grid.SetRow(control, 1);
+            Programulina.Children.Add(control);
         }
 
 
