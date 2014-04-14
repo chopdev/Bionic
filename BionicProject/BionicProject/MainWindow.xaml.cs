@@ -38,6 +38,12 @@ namespace BionicProject
             SignInDialog.ShowDialog();
             user = SignIn.user;
             CoursesTree.ItemsSource = user.MyCourses;
-        } 
+
+            MessageControl control = new MessageControl();
+            Grid.SetColumn(control, 1);
+            Grid.SetRow(control, 1);
+        }
+
+
     }
 }
