@@ -43,7 +43,7 @@ namespace BionicProject
             }
             
         }
-        public IEnumerator<User> PossibleReceiver(string Surname, string Name)
+        public IEnumerator<User> PossibleReceivers(string Surname, string Name)
         {
             MySqlCommand cmd = database.CreateCommand();
             cmd.CommandText = "Select * from users where Surname = @Surname, Name = %Name";
