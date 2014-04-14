@@ -26,9 +26,8 @@ namespace BionicProject
 
         private void createNewMessage_Click(object sender, RoutedEventArgs e)
         {
-            NewMessageWindow control = new NewMessageWindow();
-            Grid.SetColumn(control, 1);
-            Grid.SetRow(control, 1);
+            NewMessage nm = new NewMessage();
+            nm.ShowDialog();
             
             
         }
