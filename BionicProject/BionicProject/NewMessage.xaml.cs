@@ -23,5 +23,12 @@ namespace BionicProject
         {
             InitializeComponent();
         }
+
+        private void FindButton_Click(object sender, RoutedEventArgs e)
+        {
+            StoreDB store = new StoreDB();
+            store.RegisterUser("343", "34", "23", "2323", DateTime.Now, DateTime.Now);
+            PossibleList.ItemsSource = store.PossibleReceivers("1", "1");
+        }
     }
 }
