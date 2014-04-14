@@ -68,6 +68,7 @@
     <Compile Include="NewMessage.xaml.cs">
       <DependentUpon>NewMessage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Receivers.cs" />
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>

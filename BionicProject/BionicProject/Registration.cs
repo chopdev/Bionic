@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,19 @@ namespace BionicProject
                 
             }
             
+        }
+        public IEnumerator<User> PossibleReceiver(string Surname, string Name)
+        {
+            MySqlCommand cmd = database.CreateCommand();
+            cmd.CommandText = "Select * from users where Surname = @Surname, Name = %Name";
+            cmd.Parameters.AddWithValue("@Surname", Surname);
+            cmd.Parameters.AddWithValue("@Password", Name);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+
+            int k = 4;
+            yield return new User(4,"4","4",DateTime.Now,"df");
         }
     }
 }

@@ -11,19 +11,23 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Write Surname</Label>
         <Label Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Write Name</Label>
         <TextBox x:Name="SurnameButton" Grid.Row="1" Grid.Column="0" TextAlignment="Center"></TextBox>
-        <TextBox x:Name="NameButton" Grid.Row="1" Grid.Column="1" TextAlignment="Center">></TextBox>
-        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Possible receiver's list</Label><Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Possible receiver's list</Label>
-        <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Actual receiver's list</Label>
-        <TreeView x:Name="PossibleList" Grid.Row="3" Grid.Column="0"></TreeView>
-        <TreeView x:Name="ReceiversList" Grid.Row="3" Grid.Column="1"></TreeView>
-        <TextBox x:Name="Message" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ></TextBox>
-        <Button x:Name="SendMessageButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"> Send message</Button>
+        <TextBox x:Name="NameButton" Grid.Row="1" Grid.Column="1" TextAlignment="Center"></TextBox>
+        <Button x:Name="FindButton" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">Find</Button>
+        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Possible receiver's list</Label>
+        <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Actual receiver's list</Label>
+        <TreeView x:Name="PossibleList" Grid.Row="4" Grid.Column="0"></TreeView>
+        <TreeView x:Name="ReceiversList" Grid.Row="4" Grid.Column="1"></TreeView>
+        <Button x:Name="AddReceiver" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" >Add Receiver</Button>
+        <TextBox x:Name="Message" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" ></TextBox>
+        <Button x:Name="SendMessageButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"> Send message</Button>
     </Grid>
 </Window>
