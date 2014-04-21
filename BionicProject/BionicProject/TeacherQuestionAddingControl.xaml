@@ -8,24 +8,25 @@
 
     <UserControl.Resources>
         <DataTemplate x:Key="AnswerElement">
-            <Grid>
+            <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition ></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <CheckBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></CheckBox>
-                <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,0"></TextBox>
+                <CheckBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsChecked="{Binding IsCorrect, Mode=OneWayToSource}"></CheckBox>
+                <TextBox Grid.Column="1" HorizontalAlignment="Stretch" MinWidth="300" VerticalAlignment="Stretch" Margin="30,0,0,0" Text="{Binding AnswerText, Mode=OneWayToSource}"></TextBox>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid x:Name="gridMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -34,7 +35,7 @@
 
         <Label Content="Сложность:"></Label>
         <!--<TextBox Grid.Column="1" Margin="10,0,239,0"></TextBox>-->
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" >
+        <ComboBox x:Name="cbDifficulty" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" SelectedValue="{Binding Difficulty, Mode=OneWayToSource}" >
             <ComboBoxItem Content="1"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
@@ -42,8 +43,8 @@
             <ComboBoxItem Content="5"></ComboBoxItem>
         </ComboBox>
         <Label Content="Текст вопроса:" Grid.Row="1"></Label>
-        <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"></TextBox>
-        <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" >
+        <TextBox x:Name="tbQuestionsText" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Text="{Binding QuestionText, Mode=OneWayToSource}"></TextBox>
+        <ComboBox x:Name="cbCountOfAnswers" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"  SelectionChanged="cbCountOfAnswers_SelectionChanged" >
             <ComboBoxItem Content="1"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
@@ -55,6 +56,9 @@
         
         <Label Content="Ответ правильный"  Grid.Row="3" VerticalContentAlignment="Bottom"></Label>
         <Label Content="Содержимое ответа"  Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Bottom" HorizontalAlignment="Center"></Label>
-        <ListView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ></ListView>
+        <ListView x:Name="lvAnswersList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ItemTemplate="{StaticResource AnswerElement}" >
+           
+        </ListView>
+        <Button Grid.Row="5" Margin="5" Content="Добавить" Click="Button_Click"></Button>
     </Grid>
 </UserControl>

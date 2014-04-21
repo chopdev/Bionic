@@ -44,9 +44,9 @@ namespace BionicProject
             //Grid.SetRow(adm, 1);
             //Programulina.Children.Add(adm);
 
-            TeacherQuestionAddingControl taqc = new TeacherQuestionAddingControl();
+            TeacherQuestionAddingControl taqc = new TeacherQuestionAddingControl(new Course(2121, "SomeCourse", 23));
             Grid.SetColumn(taqc, 1);
-            Grid.SetRow(taqc,1);
+            Grid.SetRow(taqc, 1);
             Programulina.Children.Add(taqc);
         } 
     }

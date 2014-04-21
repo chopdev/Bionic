@@ -122,6 +122,7 @@ namespace BionicProject
             QuestionType = questionType;
             Difficulty = difficulty;
             CourseId = courseId;
+            
         }
     }
 
@@ -137,6 +138,7 @@ namespace BionicProject
             AnswerText = answerText;
             QuestionsId = questionId;
             IsCorrect = isCorrect;
+           
         }
     }
 }
