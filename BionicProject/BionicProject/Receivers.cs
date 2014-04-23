@@ -13,8 +13,9 @@ namespace BionicProject
         public Receivers(string Surname, string Name)
         {
             
-            /*foreach (var m in store.PossibleReceivers(Surname, Name))
-            { Add(m); }*/
+            List<User> users= store.PossibleReceivers(Surname, Name);
+            foreach (var u in users)
+                Add(u);
         }
     }
 }

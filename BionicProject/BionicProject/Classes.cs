@@ -16,12 +16,18 @@ namespace BionicProject
         Abiturient=0, Student=1, Teacher = 2, Admin=6
     };
 
-    public class User
+    public class User 
     {
         int userId;
         public int UserID { get { return userId; } }
         public string Fname { get; set; }
-        public string Lname { get; set; }
+
+        public string Lname { get; set;} 
+        public override string ToString()
+        {
+            return   Fname + " " + Lname;
+            
+        }
         public DateTime Bdate { get; set; }
         public string Email { get; set; }
         string pass;

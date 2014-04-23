@@ -19,6 +19,7 @@ namespace BionicProject
     /// </summary>
     public partial class NewMessage : Window
     {
+        private Receivers ActualReceivers;
         public NewMessage()
         {
             InitializeComponent();
@@ -27,8 +28,17 @@ namespace BionicProject
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             StoreDB store = new StoreDB();
-            store.RegisterUser("343", "34", "23", "2323", DateTime.Now, DateTime.Now);
-           // PossibleList.ItemsSource = store.PossibleReceivers("1", "1");
+
+            PossibleList.ItemsSource = new Receivers(SurnameTextBox.Text, NameTextBox.Text);
+
+        }
+
+        private void AddReceiver_Click(object sender, RoutedEventArgs e)
+        {
+            ActualReceivers.Add((User)ReceiversList.SelectedValue);
+            ReceiversList.ItemsSource = ActualReceivers;
+            
+            //PossibleList.SelectedItem
         }
     }
 }

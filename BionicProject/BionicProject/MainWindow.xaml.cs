@@ -27,7 +27,7 @@ namespace BionicProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        User user;
+        public static User user;
         StoreDB store = new StoreDB();
         SignIn SignInDialog;
         public MainWindow()

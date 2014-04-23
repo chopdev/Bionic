@@ -43,18 +43,22 @@ namespace BionicProject
             }
             
         }
-        public IEnumerator<User> PossibleReceivers(string Surname, string Name)
+        public List<User> PossibleReceivers(string FirstName, string LastName)
         {
             MySqlCommand cmd = database.CreateCommand();
-            cmd.CommandText = "Select * from users where Surname = @Surname, Name = %Name";
-            cmd.Parameters.AddWithValue("@Surname", Surname);
-            cmd.Parameters.AddWithValue("@Password", Name);
+            cmd.CommandText = "Select * from User where FirstName = @FirstName and LastName = @LastName";
+            cmd.Parameters.AddWithValue("@FirstName", FirstName);
+            cmd.Parameters.AddWithValue("@LastName", LastName);
+            //cmd.CommandText = "Select * from User";
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             DataSet ds = new DataSet();
-            da.Fill(ds);
+            da.Fill(ds,"User");
 
-            int k = 4;
-            yield return new User(4,"4","4",DateTime.Now,"df");
+            List<User> l = new List<User>();
+            var o = ds.Tables["User"].Rows;
+            foreach(DataRow row in ds.Tables["User"].Rows)
+                l.Add(GetUserOnLogin(row.ItemArray[4].ToString(),row.ItemArray[5].ToString()));
+            return l;
         }
     }
 }
