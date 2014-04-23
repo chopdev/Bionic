@@ -1,0 +1,9 @@
+﻿<Application x:Class="BionicProject.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <BitmapImage x:Key="waiting" CreateOptions="IgnoreImageCache" CacheOption="OnLoad"  UriSource="D:\TARAS\projects\BIONIC\Bionic.git\BionicProject\BionicProject\waiting.png" />
+        
+    </Application.Resources>
+</Application>
