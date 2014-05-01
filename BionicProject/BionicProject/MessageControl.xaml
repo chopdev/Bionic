@@ -8,12 +8,12 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="60px"></RowDefinition>
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
-        <Button x:Name="createNewMessage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="Write a message" Click="createNewMessage_Click"/>
+        <Button x:Name="createNewMessage" Grid.Column="0"  Grid.Row="0" Content="Write a message" Click="createNewMessage_Click"/>
+        <TreeView x:Name="Messages" Grid.Row="1"></TreeView>
     </Grid>
 </UserControl>

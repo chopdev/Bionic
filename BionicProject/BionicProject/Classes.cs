@@ -99,7 +99,7 @@ namespace BionicProject
     }
 
    public class Courses : ObservableCollection<Course>
-    {
+   {
         StoreDB store = new StoreDB();
         public Courses(User user)
         {
@@ -107,12 +107,37 @@ namespace BionicProject
             { Add(m); }
         }
 
-    }
+   }
 
-   public class Users : ObservableCollection<User>
-    {
+   public class Message
+   {
+       public int Id { get; private set; }
+       public int OwnerId { get; private set; }
+       public int ReceiverId { get; private set; }
+       public string Text { get; private set; }
+       public User Owner { get; private set; }
+       public User Receiver { get; private set; }
+       public DateTime CreatedDate { get; private set; }
 
-    }
+       public Message(int id)
+       {
+
+       }
+       public Message(int id, string text, DateTime CreatedDate, int OwnerId, int ReceiverId)
+       {
+           this.Id = id;
+           this.Text = text;
+           this.CreatedDate = CreatedDate;
+           this.OwnerId = OwnerId;
+           this.ReceiverId = ReceiverId;
+           StoreDB store = new StoreDB();
+           Owner = store.GetUserOnId(OwnerId);
+           Receiver = store.GetUserOnId(ReceiverId);
+       }
+
+   }
+
+    
 
 
 }
