@@ -65,6 +65,7 @@
     <Compile Include="MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessagesDB.cs" />
     <Compile Include="NewMessage.xaml.cs">
       <DependentUpon>NewMessage.xaml</DependentUpon>
     </Compile>
@@ -72,7 +73,7 @@
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Registration.cs" />
+    <Compile Include="RegistrationDB.cs" />
     <Compile Include="SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>

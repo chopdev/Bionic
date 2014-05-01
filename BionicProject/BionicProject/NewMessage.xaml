@@ -13,7 +13,6 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -26,8 +25,7 @@
         <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Actual receiver's list</Label>
         <TreeView x:Name="PossibleList"  Grid.Row="4" Grid.Column="0" SelectedItemChanged="PossibleList_SelectedItemChanged"></TreeView>
         <TreeView x:Name="ReceiversList" Grid.Row="4" Grid.Column="1" SelectedItemChanged="ReceiversList_SelectedItemChanged"></TreeView>
-        <Button x:Name="AddReceiver" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="AddReceiver_Click" >Add Receiver</Button>
-        <TextBox x:Name="Message" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" ></TextBox>
-        <Button x:Name="SendMessageButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"> Send message</Button>
+        <TextBox x:Name="Message" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" ></TextBox>
+        <Button x:Name="SendMessageButton" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Click="SendMessageButton_Click"> Send message</Button>
     </Grid>
 </Window>

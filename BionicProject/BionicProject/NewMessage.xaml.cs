@@ -37,11 +37,6 @@ namespace BionicProject
             PossibleList.ItemsSource = PossibleReceivers; 
         }
 
-        private void AddReceiver_Click(object sender, RoutedEventArgs e)
-        {
-
-           
-        }
 
         private void PossibleList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -62,6 +57,20 @@ namespace BionicProject
                 PossibleReceivers.Add(selectedUserInPossibleTree);
                 ActualReceivers.Remove(selectedUserInPossibleTree);
             }
+        }
+
+        private void SendMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            String text = Message.Text;
+            int senderId = MainWindow.user.UserID;
+            List<int> receiversIdList = new List<int>();
+            foreach (var receiver in ActualReceivers)
+                receiversIdList.Add(receiver.UserID);
+            StoreDB store = new StoreDB();
+            foreach (int receiverId in receiversIdList)
+                store.SendMessage(text, senderId, receiverId);
+
+            Message.Text = "";
         }
 
 
