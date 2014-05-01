@@ -20,25 +20,50 @@ namespace BionicProject
     public partial class NewMessage : Window
     {
         private Receivers ActualReceivers;
+        private Receivers PossibleReceivers;
+        User selectedUserInPossibleTree; //Kostul.
         public NewMessage()
         {
+            ActualReceivers = new Receivers();
+            
             InitializeComponent();
+            ReceiversList.ItemsSource = ActualReceivers;
         }
 
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             StoreDB store = new StoreDB();
-
-            PossibleList.ItemsSource = new Receivers(SurnameTextBox.Text, NameTextBox.Text);
-
+            PossibleReceivers = new Receivers(SurnameTextBox.Text, NameTextBox.Text);
+            PossibleList.ItemsSource = PossibleReceivers; 
         }
 
         private void AddReceiver_Click(object sender, RoutedEventArgs e)
         {
-            ActualReceivers.Add((User)ReceiversList.SelectedValue);
-            ReceiversList.ItemsSource = ActualReceivers;
-            
-            //PossibleList.SelectedItem
+
+           
         }
+
+        private void PossibleList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
+            selectedUserInPossibleTree = (User)e.NewValue;
+            if (selectedUserInPossibleTree != null)
+            {
+                ActualReceivers.Add(selectedUserInPossibleTree);
+                PossibleReceivers.Remove(selectedUserInPossibleTree);
+            }
+        }
+
+        private void ReceiversList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            selectedUserInPossibleTree = (User)e.NewValue;
+            if (selectedUserInPossibleTree != null)
+            {
+                PossibleReceivers.Add(selectedUserInPossibleTree);
+                ActualReceivers.Remove(selectedUserInPossibleTree);
+            }
+        }
+
+
     }
 }
