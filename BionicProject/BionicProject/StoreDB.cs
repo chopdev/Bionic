@@ -14,7 +14,7 @@ namespace BionicProject
    partial class StoreDB
     {
 
-        string connection = "Server=mysql.cyberhost.net.ua;Database=Bionic;Uid=Bionic;Pwd=BionicGroup;";
+       string connection = "Server=mysql.cyberhost.net.ua;Database=Bionic;Uid=Bionic;Pwd=BionicGroup;Allow Zero Datetime=true;";
         string SelectAllcourses = "Select * from `Course`";
         string Use = "Use Bionic";
         string SelectCourses = "SELECT * FROM `UserCourses` usrc JOIN `Course` c ON usrc.CourseID = c.CourseID where usrc.UserID =@ID";
@@ -69,9 +69,9 @@ namespace BionicProject
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
-                System.Windows.MessageBox.Show("Не удалось подключиться к БД");
+                System.Windows.MessageBox.Show(ex.Message);
 
             }
             finally
@@ -123,12 +123,12 @@ namespace BionicProject
             User user = null;
             MySqlCommand cmd = database.CreateCommand();
 
-            cmd.CommandText = "Select from User where id=@Id";
+            cmd.CommandText = "Select * from User where UserID = @Id";
             cmd.Parameters.AddWithValue("@Id", id);
 
             try
             {
-                database.Open();
+                if (database.State != System.Data.ConnectionState.Open) database.Open();
                 
 
                 MySqlDataReader data = cmd.ExecuteReader();
@@ -139,9 +139,9 @@ namespace BionicProject
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
-                System.Windows.MessageBox.Show("Не удалось подключиться к БД");
+                System.Windows.MessageBox.Show(ex.Message);
 
             }
             finally

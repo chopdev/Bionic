@@ -23,8 +23,10 @@ namespace BionicProject
         {
             InitializeComponent();
             StoreDB store = new StoreDB();
-            var l = store.getMessagesOnId(MainWindow.user.UserID);
-            Messages.Items.Add("3434");
+            var messages = store.getMessagesOnId(MainWindow.user.UserID);
+            foreach (var m in messages)
+                Messages.Items.Add(m);
+            //Messages.Items.Add("3434");
         }
 
         private void createNewMessage_Click(object sender, RoutedEventArgs e)
