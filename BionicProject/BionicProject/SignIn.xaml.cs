@@ -41,5 +41,11 @@ namespace BionicProject
             Register r = new Register();
             r.ShowDialog();
         }
+
+
+
+
+
+
     }
 }
