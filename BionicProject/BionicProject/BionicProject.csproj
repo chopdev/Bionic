@@ -61,6 +61,9 @@
       <DependentUpon>AdminPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="AModule.cs" />
+    <Compile Include="AnswerMessage.xaml.cs">
+      <DependentUpon>AnswerMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes.cs" />
     <Compile Include="MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
@@ -79,6 +82,10 @@
     </Compile>
     <Compile Include="StoreDB.cs" />
     <Page Include="AdminPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AnswerMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

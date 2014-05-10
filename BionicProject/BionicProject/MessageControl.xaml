@@ -14,6 +14,8 @@
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
         <Button x:Name="createNewMessage" Grid.Column="0"  Grid.Row="0" Content="Write a message" Click="createNewMessage_Click"/>
-        <TreeView x:Name="Messages" Grid.Row="1"></TreeView>
+        <TreeView x:Name="Messages" Grid.Row="1" SelectedItemChanged="Messages_SelectedItemChanged" >
+            
+        </TreeView>
     </Grid>
 </UserControl>

@@ -26,15 +26,21 @@ namespace BionicProject
             var messages = store.getMessagesOnId(MainWindow.user.UserID);
             foreach (var m in messages)
                 Messages.Items.Add(m);
-            //Messages.Items.Add("3434");
+            
         }
 
         private void createNewMessage_Click(object sender, RoutedEventArgs e)
         {
             NewMessage nm = new NewMessage();
-            nm.ShowDialog();
-            
-            
+            nm.ShowDialog(); 
+        }
+
+        private void Messages_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            Message message = (Message)e.NewValue;
+            AnswerMessage am = new AnswerMessage(message);
+            am.ShowDialog();
+
         }
     }
 }
