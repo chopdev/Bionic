@@ -1,0 +1,24 @@
+﻿<Window x:Class="BionicProject.AnswerMessage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AnswerMessage" Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label x:Name="NameLabel" Grid.Row="0"></Label>
+        <Label Grid.Row="1">
+            <TextBlock x:Name="MessageBlock" TextWrapping="WrapWithOverflow" >
+            </TextBlock>
+        </Label>
+        <TextBox x:Name="MessageBox" Grid.Row="3"></TextBox>
+        <Button x:Name="SendButton"  Grid.Row="4" Click="SendButton_Click">Send</Button>
+    </Grid>
+</Window>

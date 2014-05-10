@@ -30,24 +30,35 @@ namespace BionicProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        User user;
+        static public User user;
         StoreDB store = new StoreDB();
+        SignIn SignInDialog;
         public MainWindow()
         {
             InitializeComponent();
 
-            user = store.GetUserOnLogin("sedova26@mail.ru", "123");
-            if (user == null) { MessageBox.Show("Where am I?"); Environment.Exit(0); }
+            //user = store.GetUserOnLogin("sedova26@mail.ru", "123");
+            //if (user == null) { MessageBox.Show("Where am I?"); Environment.Exit(0); }
+
+            SignInDialog = new SignIn();
+            SignInDialog.ShowDialog();
+            user = SignIn.user;
+
             CoursesTree.ItemsSource = user.MyCourses;
             //AdminPanel adm = new AdminPanel(new Course(2121, "SomeCourse", 23));
             //Grid.SetColumn(adm, 1);
             //Grid.SetRow(adm, 1);
             //Programulina.Children.Add(adm);
 
-            TeacherQuestionAddingControl taqc = new TeacherQuestionAddingControl(new Course(2121, "SomeCourse", 23));
-            Grid.SetColumn(taqc, 1);
-            Grid.SetRow(taqc, 1);
-            Programulina.Children.Add(taqc);
+            //TeacherQuestionAddingControl taqc = new TeacherQuestionAddingControl(new Course(2121, "SomeCourse", 23));
+            //Grid.SetColumn(taqc, 1);
+            //Grid.SetRow(taqc, 1);
+            //Programulina.Children.Add(taqc);
+
+            MessageControl control = new MessageControl();
+            Grid.SetColumn(control, 1);
+            Grid.SetRow(control, 1);
+            Programulina.Children.Add(control);
         } 
     }
 }

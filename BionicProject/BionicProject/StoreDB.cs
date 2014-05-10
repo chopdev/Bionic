@@ -141,6 +141,40 @@ namespace BionicProject
                 database.Close();
             }
         }
+       public User GetUserOnId(int id)
+       {
+           User user = null;
+           MySqlConnection database = new MySqlConnection(connection);
+           MySqlCommand cmd = database.CreateCommand();
 
+           cmd.CommandText = "Select * from User where UserID = @Id";
+           cmd.Parameters.AddWithValue("@Id", id);
+
+           try
+           {
+               if (database.State != System.Data.ConnectionState.Open) database.Open();
+
+
+               MySqlDataReader data = cmd.ExecuteReader();
+               while (data.Read())
+               {
+                   user = new User(Int32.Parse(data["UserID"].ToString()), data["FirstName"].ToString(), data["LastName"].ToString(),
+                          DateTime.Now, data["Email"].ToString());
+               }
+
+           }
+           catch (Exception ex)
+           {
+               System.Windows.MessageBox.Show(ex.Message);
+
+           }
+           finally
+           {
+
+               database.Close();
+           }
+           return user;
+       }
     }
+
 }

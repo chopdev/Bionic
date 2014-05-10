@@ -141,4 +141,37 @@ namespace BionicProject
            
         }
     }
+    public class Message
+    {
+        public int Id { get; private set; }
+        public string Text { get; private set; }
+        public User Owner { get; private set; }
+        public User Receiver { get; private set; }
+        public DateTime? CreatedDate { get; private set; }
+
+        public Message(int id)
+        {
+
+        }
+        public Message(int id, string text, DateTime? CreatedDate, int OwnerId, int ReceiverId)
+        {
+            this.Id = id;
+            this.Text = text;
+            this.CreatedDate = CreatedDate;
+            StoreDB store = new StoreDB();
+            Owner = store.GetUserOnId(OwnerId);
+            Receiver = store.GetUserOnId(ReceiverId);
+        }
+
+        public override string ToString()
+        {
+            string textMessage = Text;
+            if (textMessage.Length > 50)
+            {
+                textMessage = textMessage.Remove(50);
+                textMessage += "...";
+            }
+            return Owner.Fname + " " + Owner.Lname + ":  " + textMessage + "\n";
+        }
+    }
 }
